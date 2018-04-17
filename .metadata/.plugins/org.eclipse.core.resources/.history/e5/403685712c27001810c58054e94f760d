@@ -1,0 +1,55 @@
+//io_handler.c
+#include "io_handler.h"
+#include <stdio.h>
+
+#define HPI_DATA    0
+#define HPI_MAILBOX 1
+#define HPI_ADDR    2
+#define HPI_STATUS  3
+
+void IO_init(void)
+{
+	*otg_hpi_reset = 1;
+	*otg_hpi_cs = 1;
+	*otg_hpi_r = 1;
+	*otg_hpi_w = 1;
+	*otg_hpi_address = 0;
+	*otg_hpi_data = 0;
+	// Reset OTG chip
+	*otg_hpi_cs = 0;
+	*otg_hpi_reset = 0;
+	*otg_hpi_reset = 1;
+	*otg_hpi_cs = 1;
+}
+
+void IO_write(alt_u8 Address, alt_u16 Data)
+{
+//*************************************************************************//
+//									TASK								   //
+//*************************************************************************//
+//							Write this function							   //
+//*************************************************************************//
+
+}
+
+alt_u16 IO_read(alt_u8 Address)
+{
+	alt_u16 temp;
+//*************************************************************************//
+//									TASK								   //
+//*************************************************************************//
+//							Write this function							   //
+//*************************************************************************//
+	switch (Address){
+			case HPI_DATA:
+
+			case HPI_MAILBOX:
+
+			case HPI_ADDR:
+
+			case HPI_STATUS:
+
+	}
+	//printf("%x\n",temp);
+	return temp;
+}

@@ -1,0 +1,11 @@
+db/
+incremental_db/
+RemoteSystemsTempFiles/
+
+*.sv.bak
+*.rpt
+*.done
+*.smsg
+*.summary
+*.jdi
+*.sld
