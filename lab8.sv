@@ -48,9 +48,9 @@ module lab8( input               CLOCK_50,
     
     logic Reset_h, Clk;
     logic [7:0] keycode;
-	 logic is_ball;
-	 logic [9:0] DrawX;
-	 logic [9:0] DrawY;
+	 logic is_pac;
+	 logic [9:0] DrawX, PacX;
+	 logic [9:0] DrawY, PacY;
     
     assign Clk = CLOCK_50;
     always_ff @ (posedge Clk) begin
@@ -148,20 +148,23 @@ module lab8( input               CLOCK_50,
 	);
     
 //    // Which signal should be frame_clk?
-    ball ball_instance(
+    pacman pac_instance(
 			.Clk(Clk),
 			.Reset(Reset_h), 
 			.frame_clk(VGA_HS | VGA_VS), 
 			.DrawX(DrawX),
 			.DrawY(DrawY),
+			.PacX(PacX),
+			.PacY(PacY),
 			.keycode(keycode),
-			.is_ball(is_ball)
-	);
+			.is_pac(is_pac)	);
    
    color_mapper color_instance(
-			.is_ball(is_ball),
+			.is_pac(is_pac),
 			.DrawX(DrawX),
 			.DrawY(DrawY),
+			.PacX(PacX),
+			.PacY(PacY),
 			.VGA_R(VGA_R),
 			.VGA_G(VGA_G),
 			.VGA_B(VGA_B)

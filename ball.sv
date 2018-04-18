@@ -17,9 +17,9 @@
 module  ball ( input         Clk,                // 50 MHz clock
                              Reset,              // Active-high reset signal
                              frame_clk,          // The clock indicating a new frame (~60Hz)
-               input [9:0]   DrawX, DrawY,       // Current pixel coordinates
+               input [9:0]   DrawX, DrawY ,   // Current pixel coordinates
 					input [7:0]   keycode,				 // keycodes for handling presses
-               output logic  is_ball             // Whether current pixel belongs to ball or background
+               output logic  is_ball				// Whether current pixel belongs to ball or background 
               );
     
     parameter [9:0] Ball_X_Center = 10'd320;  // Center position on the X axis
@@ -34,6 +34,7 @@ module  ball ( input         Clk,                // 50 MHz clock
     
     logic [9:0] Ball_X_Pos, Ball_X_Motion, Ball_Y_Pos, Ball_Y_Motion;
     logic [9:0] Ball_X_Pos_in, Ball_X_Motion_in, Ball_Y_Pos_in, Ball_Y_Motion_in;
+	 
     
     //////// Do not modify the always_ff blocks. ////////
     // Detect rising edge of frame_clk
@@ -144,5 +145,6 @@ module  ball ( input         Clk,                // 50 MHz clock
            the single line is quite powerful descriptively, it causes the synthesis tool to use up three
            of the 12 available multipliers on the chip! */
     end
+	 
     
 endmodule
