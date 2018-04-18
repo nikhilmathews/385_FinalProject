@@ -21,10 +21,12 @@ module  color_mapper (             // Whether current pixel belongs to ball
                      );
     
     logic [7:0] Red, Green, Blue;
-    logic [23:0] PacOut; 
+    logic [23:0] PacOut, MazeOut;  
 	 
 	 pac_rightRAM pac_rram(.read_address(PacX + PacY*16), 
 						.data_Out(PacOut));
+						
+	 maze_RAM maze_instance(.read_address(DrawX + DrawY*640), .data_Out(MazeOut));
 	 
     // Output colors to VGA
     assign VGA_R = Red;
@@ -36,16 +38,16 @@ module  color_mapper (             // Whether current pixel belongs to ball
     begin
 			if (is_pac == 1'b1)
 		  begin
-				Blue = PacOut[7:0];
-				Green = PacOut[15:8];
 				Red = PacOut[23:16];
+				Green = PacOut[15:8];
+				Blue = PacOut[7:0];
 			end
         else 
         begin
-            // Background with nice color gradient
-            Red = 8'h3f; 
-            Green = 8'h00;
-            Blue = 8'h7f - {1'b0, DrawX[9:3]};
+            // Background with maze
+           	Red = MazeOut[23:16];
+				Green = MazeOut[15:8];
+				Blue = MazeOut[7:0];
         end
     end 
     

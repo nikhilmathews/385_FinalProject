@@ -157,7 +157,8 @@ module lab8( input               CLOCK_50,
 			.PacX(PacX),
 			.PacY(PacY),
 			.keycode(keycode),
-			.is_pac(is_pac)	);
+			.is_pac(is_pac)
+	);
    
    color_mapper color_instance(
 			.is_pac(is_pac),
