@@ -21,6 +21,6 @@ for y in range(im.size[1]):
         print(pixel)
         outImg.putpixel((x,y), pixel)
         r, g, b, a = im.getpixel((x,y))
-        outFile.write("%x%x%x\n" %(r,g,b))
+        outFile.write("%.2x%.2x%.2x\n" %(r,g,b))
 outFile.close()
 outImg.save("./sprite_converted/" + filename+ ".png")
