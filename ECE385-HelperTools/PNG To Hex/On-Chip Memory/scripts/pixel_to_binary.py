@@ -20,12 +20,12 @@ for y in range(im.size[1]):
         pixel = im.getpixel((x,y))
         print(pixel)
         r, g, b, a = im.getpixel((x, y))
-        if(r <= 100 and g <= 100 and b <= 100):
+        if(r <= 120 and g <= 120 and b <= 120):
             outImg.putpixel((x,y), pixel)
             r, g, b, a = im.getpixel((x,y))
             outFile.write("0")
         else:
             outFile.write("1")
-    outFile.write("\n")
+        outFile.write("\n")
 outFile.close()
 outImg.save("./sprite_converted/" + filename+ ".png")
