@@ -21,7 +21,8 @@ module  color_mapper (             // Whether current pixel belongs to ball
                      );
     
     logic [7:0] Red, Green, Blue;
-    logic [23:0] PacOut, MazeOut;  
+    logic [23:0] PacOut;  
+	 logic MazeOut;
 	 
 	 pac_rightRAM pac_rram(.read_address(PacX + PacY*16), 
 						.data_Out(PacOut));
@@ -32,22 +33,32 @@ module  color_mapper (             // Whether current pixel belongs to ball
     assign VGA_R = Red;
     assign VGA_G = Green;
     assign VGA_B = Blue;
-    
+	 
+	 
     // Assign color based on is_ball signal
     always_comb
     begin
-			if (is_pac == 1'b1)
-		  begin
+		if (is_pac == 1'b1)
+		begin
 				Red = PacOut[23:16];
 				Green = PacOut[15:8];
 				Blue = PacOut[7:0];
-			end
-        else 
+		end
+      else 
         begin
             // Background with maze
-           	Red = MazeOut[23:16];
-				Green = MazeOut[15:8];
-				Blue = MazeOut[7:0];
+				if(MazeOut == 1'b0)
+				begin
+					Red =  8'hff;
+					Green = 8'hff;
+					Blue =  8'hff;
+				end
+				else
+				begin
+					Red =  8'h1f;
+					Green = 8'h2b;
+					Blue =  8'hdb;
+				end
         end
     end 
     
