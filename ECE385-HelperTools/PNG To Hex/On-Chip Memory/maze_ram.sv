@@ -7,15 +7,15 @@
 module  maze_RAM
 (
 		input [18:0] read_address,
-		output logic [4:0] data_Out
+		output logic data_Out
 );
 
 // mem has width of 3 bits and a total of 400 addresses
-logic [23:0] mem [0:306999];
+logic mem [0:307199];
 
 initial
 begin
-	 $readmemh("sprite_bytes/maze.txt", mem);
+	 $readmemb("sprite_bytes/maze.txt", mem);
 end
 
 
