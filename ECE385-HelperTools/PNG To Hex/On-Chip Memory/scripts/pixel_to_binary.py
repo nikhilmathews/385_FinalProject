@@ -26,6 +26,6 @@ for y in range(im.size[1]):
             outFile.write("0")
         else:
             outFile.write("1")
-    outFile.write("\n")
+    #outFile.write("\n")
 outFile.close()
 outImg.save("./sprite_converted/" + filename+ ".png")
