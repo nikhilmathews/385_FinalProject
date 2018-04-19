@@ -30,7 +30,7 @@ print("The best way to figure out which mode to use is to look at the detailed n
 print("Good luck and have fun with your projets!\n")
 
 while(1):
-    mode = int(input("Which mode of PNG to Txt would you like to use? Enter number between 0-3: "))
+    mode = int(input("Which mode of PNG to Txt would you like to use? Enter number between 0-5: "))
     if mode == 0:
         os.system("python ./scripts/png_to_txt.py")
         break
@@ -43,7 +43,9 @@ while(1):
     elif mode == 3:
         os.system("python ./scripts/png_to_palette_relative_resizer.py")
         break
-    elif mode ==4:
+    elif mode == 4:
         os.system("python ./scripts/pixel_to_binary.py")
+    elif mode == 5:
+        os.system("python ./scripts/pixel_to_binary_sv.py")
     else:
         print("Please enter a valid number.")

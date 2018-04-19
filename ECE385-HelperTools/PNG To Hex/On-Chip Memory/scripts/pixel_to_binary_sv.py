@@ -14,8 +14,9 @@ im = Image.open("./sprite_originals/" + filename + ".png") #Can be many differen
 im = im.convert("RGBA")
 
 outImg = Image.new('RGB', im.size, color='white')
-outFile = open("./sprite_bytes/" + filename + '.txt', 'w')
+outFile = open("./sprite_bytes_sv/" + filename + '.txt', 'w')
 for y in range(im.size[1]):
+    outFile.write("640'b ")
     for x in range(im.size[0]):
         pixel = im.getpixel((x,y))
         print(pixel)
@@ -26,6 +27,6 @@ for y in range(im.size[1]):
             outFile.write("0")
         else:
             outFile.write("1")
-    outFile.write("\n")
+    outFile.write(",\n")
 outFile.close()
 outImg.save("./sprite_converted/" + filename+ ".png")
