@@ -15,7 +15,7 @@
 
 // color_mapper: Decide which color to be output to VGA for each pixel.
 module  color_mapper (             // Whether current pixel belongs to ball 
-                       input					is_pac,                                       //   or background (computed in ball.sv)
+                       input					is_pac,is_wall,                                       //   or background (computed in ball.sv)
                        input        [9:0] DrawX, DrawY,PacX, PacY,       // Current pixel coordinates
                        output logic [7:0] VGA_R, VGA_G, VGA_B // VGA RGB output
                      );
@@ -27,7 +27,6 @@ module  color_mapper (             // Whether current pixel belongs to ball
 	 pac_rightRAM pac_rram(.read_address(PacX + PacY*16), 
 						.data_Out(PacOut));
 						
-	 maze_RAM maze_instance(.read_addressX(DrawX), .read_addressY(DrawY), .data_Out(MazeOut));
 	 
     // Output colors to VGA
     assign VGA_R = Red;
@@ -47,7 +46,7 @@ module  color_mapper (             // Whether current pixel belongs to ball
       else 
         begin
             // Background with maze
-				if(MazeOut == 1'b0)
+				if(is_wall == 1'b0)
 				begin
 					Red =  8'h00;
 					Green = 8'h00;

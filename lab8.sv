@@ -48,7 +48,7 @@ module lab8( input               CLOCK_50,
     
     logic Reset_h, Clk;
     logic [7:0] keycode;
-	 logic is_pac;
+	 logic is_pac,is_wall;
 	 logic [9:0] DrawX, PacX;
 	 logic [9:0] DrawY, PacY;
     
@@ -157,11 +157,13 @@ module lab8( input               CLOCK_50,
 			.PacX(PacX),
 			.PacY(PacY),
 			.keycode(keycode),
-			.is_pac(is_pac)
+			.is_pac(is_pac),
+			.is_wall(is_wall)
 	);
    
    color_mapper color_instance(
 			.is_pac(is_pac),
+			.is_wall(is_wall),
 			.DrawX(DrawX),
 			.DrawY(DrawY),
 			.PacX(PacX),
