@@ -25,7 +25,7 @@ module pacman(input         Clk,                // 50 MHz clock
     parameter [9:0] Pac_Y_Max = 10'd479;     // Bottommost point on the Y axis
     parameter [9:0] Pac_X_Step = 10'd1;      // Step size on the X axis
     parameter [9:0] Pac_Y_Step = 10'd1;      // Step size on the Y axis
-    parameter [9:0] Pac_Size = 10'd16;        // Pac size
+    parameter [9:0] Pac_Size = 10'd26;        // Pac size
 	 
     
     logic [9:0] Pac_X_Pos, Pac_X_Motion, Pac_Y_Pos, Pac_Y_Motion;
@@ -240,7 +240,6 @@ module pacman(input         Clk,                // 50 MHz clock
     int DistX, DistY, Size;
     assign DistX = DrawX - Pac_X_Pos;
     assign DistY = DrawY - Pac_Y_Pos;
-    assign Size = Pac_Size;
     always_comb begin
 //        if ( ( DistX*DistX + DistY*DistY) <= (Size*Size) ) 
 		   if (DistX <= Pac_Size & DistX >= 0 & DistY <= Pac_Size & DistY >= 0)

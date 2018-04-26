@@ -15,7 +15,7 @@
 
 module lab8( input               CLOCK_50,
              input        [3:0]  KEY,          //bit 0 is set up as Reset
-             output logic [6:0]  HEX0, HEX1,HEX4, HEX6,
+             output logic [6:0]  HEX0, HEX1,HEX2,HEX3,HEX4,HEX5, HEX6, HEX7,
              // VGA Interface 
              output logic [7:0]  VGA_R,        //VGA Red
                                  VGA_G,        //VGA Green
@@ -51,6 +51,7 @@ module lab8( input               CLOCK_50,
 	 logic is_pac,is_wall;
 	 logic [9:0] DrawX, PacX;
 	 logic [9:0] DrawY, PacY;
+	 logic [3:0] score;
     
     assign Clk = CLOCK_50;
     always_ff @ (posedge Clk) begin
@@ -61,6 +62,7 @@ module lab8( input               CLOCK_50,
     logic [15:0] hpi_data_in, hpi_data_out;
     logic hpi_r, hpi_w, hpi_cs, hpi_reset;
 	 logic [2:0] DIR,DIR_IN; 
+	 logic [9:0] kill_10, alive_10,is_dot;
 	 
 	 lab8_soc m_lab8_soc(
 											 .clk_clk(CLOCK_50),
@@ -165,6 +167,7 @@ module lab8( input               CLOCK_50,
 	);
    
    color_mapper color_instance(
+			.Clk(Clk),
 			.is_pac(is_pac),
 			.is_wall(is_wall),
 			.DrawX(DrawX),
@@ -173,14 +176,29 @@ module lab8( input               CLOCK_50,
 			.PacY(PacY),
 			.VGA_R(VGA_R),
 			.VGA_G(VGA_G),
-			.VGA_B(VGA_B)
+			.VGA_B(VGA_B),
+			.kill_10(kill_10),
+			.alive_10(alive_10),
+			.is_dot(is_dot),
+			.score(score)
 	);
     
     // Display keycode on hex display
-    HexDriver hex_inst_0 (keycode[3:0], HEX0);
-    HexDriver hex_inst_1 (keycode[7:4], HEX1);
-	 HexDriver hex_inst_2 (DIR, HEX4);
-	 HexDriver hex_inst_3 (DIR_IN, HEX6);
+    //HexDriver hex_inst_0 (keycode[3:0], HEX0);
+    //HexDriver hex_inst_1 (keycode[7:4], HEX1);
+//	 HexDriver hex_inst_0 (alive_10[3:0], HEX0);
+//	 HexDriver hex_inst_1 (alive_10[7:4], HEX1);
+//	 HexDriver hex_inst_2 (alive_10[9:8], HEX2);
+
+	 HexDriver hex_inst_0 (score[3:0], HEX0);
+//	 HexDriver hex_inst_1 (is_dot[7:4], HEX1);
+//	 HexDriver hex_inst_2 (is_dot[9:8], HEX2);
+//	 
+//	 HexDriver hex_inst_3 (kill_10[3:0], HEX3);
+//	 HexDriver hex_inst_4 (kill_10[7:4], HEX4);
+//	 HexDriver hex_inst_5 (kill_10[9:8], HEX5);
+//	
+	 
     
     /**************************************************************************************
         ATTENTION! Please answer the following quesiton in your lab report! Points will be allocated for the answers!

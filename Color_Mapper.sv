@@ -14,20 +14,34 @@
 //-------------------------------------------------------------------------
 
 // color_mapper: Decide which color to be output to VGA for each pixel.
-module  color_mapper (             // Whether current pixel belongs to ball 
+module  color_mapper (             // Whether current pixel belongs to ball
+							  input Clk,
                        input					is_pac,is_wall,                                       //   or background (computed in ball.sv)
                        input        [9:0] DrawX, DrawY,PacX, PacY,       // Current pixel coordinates
-                       output logic [7:0] VGA_R, VGA_G, VGA_B // VGA RGB output
+                       output logic [7:0] VGA_R, VGA_G, VGA_B, // VGA RGB output
+							  output logic [9:0] kill_10,alive_10,is_dot,
+							  output logic [3:0] score
+
                      );
     
     logic [7:0] Red, Green, Blue;
     logic [23:0] PacOut;  
 	 logic MazeOut;
 	 
-	 pac_rightRAM pac_rram(.read_address(PacX + PacY*16), 
+	 logic [9:0] pacsize = 26;
+	 
+	 initial
+	 begin
+		score = 4'd0;
+	 end
+	 
+	 //logic [9:0] kill_10,alive_10;
+	 logic is_dots;							
+	 logic [3:0] dot_number;
+	 pac_rightRAM pac_rram(.read_address(PacX + PacY*pacsize), 
 						.data_Out(PacOut));
 						
-	 
+	 dots dots_instance(.*);
     // Output colors to VGA
     assign VGA_R = Red;
     assign VGA_G = Green;
@@ -37,7 +51,25 @@ module  color_mapper (             // Whether current pixel belongs to ball
     // Assign color based on is_ball signal
     always_comb
     begin
-		if (is_pac == 1'b1)
+	 kill_10 = 10'd0;
+		if(is_dots & alive_10[dot_number])
+		begin
+			if(is_pac == 1'b1)
+			begin
+				kill_10[dot_number] = 1'b1;
+				//score = score + 4'd1;
+				Red = PacOut[23:16];
+				Green = PacOut[15:8];
+				Blue = PacOut[7:0];
+			end
+			else
+			begin
+					Red =  8'h00;
+					Green = 8'hff;
+					Blue =  8'haa;
+			end
+		end
+		else if (is_pac == 1'b1)
 		begin
 				Red = PacOut[23:16];
 				Green = PacOut[15:8];
