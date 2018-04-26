@@ -5,7 +5,7 @@ module pacman(input         Clk,                // 50 MHz clock
 					input [7:0]   keycode,				 // keycodes for handling presses
                output logic  is_pac,is_wall,				// Whether current pixel belongs to ball or background
 					output logic [9:0] PacX, PacY,
-					output [2:0] logic DIR, DIR_IN
+					output logic [2:0]  DIR, DIR_IN
               );
 				  
 				  
@@ -67,7 +67,6 @@ module pacman(input         Clk,                // 50 MHz clock
             Pac_X_Motion <= Pac_X_Motion_in;
             Pac_Y_Motion <= Pac_Y_Motion_in;
 				Dir <= Dir_in;
-				
         end
     end
     //////// Do not modify the always_ff blocks. ////////
@@ -101,33 +100,33 @@ module pacman(input         Clk,                // 50 MHz clock
 			  begin		
 				if (keycode==8'd26) //W
 					begin
-						if(~up_wall)
-						begin
+						//if(~up_wall)
+						//begin
 //						Pac_Y_Motion_in = (~(Pac_Y_Step) + 1'b1);
 //						Pac_X_Motion_in = 0;
 						Dir_in = up;
-						end
-						else
-						begin
+						//end
+						//else
+						//begin
 //						Pac_Y_Motion_in = 0;
 //						Pac_X_Motion_in = 0;
-						Dir_in = Halted;	
-						end
+						//Dir_in = Halted;	
+						//end
 					end
 				else if (keycode==8'd4) //A
 					begin
-						if (~left_wall)			
-						begin
+						///if (~left_wall)			
+						//begin
 //						Pac_X_Motion_in = (~(Pac_X_Step) + 1'b1);
 //						Pac_Y_Motion_in = 0;
 						Dir_in = left;
-						end
-						else
-						begin
+						//end
+						//else
+						//begin
 //						Pac_Y_Motion_in = 0;
 //						Pac_X_Motion_in = 0;
-						Dir_in = Halted;	
-						end
+//						Dir_in = Halted;	
+//						end
 					end
 				
 				else if(keycode==8'd22) //S
@@ -161,76 +160,71 @@ module pacman(input         Clk,                // 50 MHz clock
 //						end
 					end
 				
-				
-//				if(Dir == up)
-//				begin
-//				if(up_wall)
-//						begin
-//						Pac_Y_Motion_in = 0;
-//						Pac_X_Motion_in = 0;
-//						Dir_in = Halted;	
-//						end
-//				end
-//				else if(Dir == down)
-//				begin
-//				if(down_wall)
-//						begin
-//						Pac_Y_Motion_in = 0;
-//						Pac_X_Motion_in = 0;
-//						Dir_in = Halted;	
-//						end
-//				end
-//				else if(Dir == right)
-//				begin
-//						if(right_wall)
-//						begin
-//						Pac_Y_Motion_in = 0;
-//						Pac_X_Motion_in = 0;
-//						Dir_in = Halted;	
-//						end
-//					end
-//				else if(Dir == left)
-//					begin
-//						if(left_wall)
-//						begin
-//						Pac_Y_Motion_in = 0;
-//						Pac_X_Motion_in = 0;
-//						Dir_in = Halted;	
-//						end
-//					end
 
 				if(Dir == up)
 				begin
+					if(~up_wall)
+					begin
 						Pac_Y_Motion_in = (~(Pac_Y_Step) + 1'b1);
 						Pac_X_Motion_in = 0;
-						Dir_in = Halted;	
+					end
+					else
+					begin
+						Pac_X_Motion_in = 0;
+						Pac_Y_Motion_in = 0;
+						//Dir_in = Halted;
+					end
 				end
 				
 				else if(Dir == down)
 				begin
+					if(~down_wall)
+					begin
 						Pac_Y_Motion_in = Pac_Y_Step;
 						Pac_X_Motion_in = 0;
-						Dir_in = Halted;	
+					end
+					else
+					begin
+						Pac_X_Motion_in = 0;
+						Pac_Y_Motion_in = 0;
+						//Dir_in = Halted;
+					end
 				end
 				
 				else if(Dir == right)
 				begin
+					if(~right_wall)
+					begin
 						Pac_Y_Motion_in = 0;
 						Pac_X_Motion_in = Pac_X_Step;
-						Dir_in = Halted;	
+					end
+					else
+					begin
+						Pac_X_Motion_in = 0;
+						Pac_Y_Motion_in = 0;
+						//Dir_in = Halted;
+					end
 				end
 				
 				else if(Dir == left)
 					begin
+					if(~left_wall)
+					begin
 						Pac_Y_Motion_in = 0;
 						Pac_X_Motion_in = (~(Pac_X_Step) + 1'b1);
-						Dir_in = Halted;	
+					end
+					else
+					begin
+						Pac_X_Motion_in = 0;
+						Pac_Y_Motion_in = 0;
+						//Dir_in = Halted;
+					end	
 					end
 				else
 				begin
 						Pac_Y_Motion_in = 0;
 						Pac_X_Motion_in = 0;
-						Dir_in = Halted;
+						//Dir_in = Halted;
 				end
             // Update the Pac's position with its motion
             Pac_X_Pos_in = Pac_X_Pos + Pac_X_Motion;

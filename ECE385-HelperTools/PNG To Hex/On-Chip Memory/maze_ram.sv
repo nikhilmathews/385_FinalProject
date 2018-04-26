@@ -6,7 +6,7 @@
 
 module  maze_RAM
 (
-		input [9:0] read_addressX, read_addressY,
+		input [9:0] read_addressX, read_addressY, Pac_X_Pos, Pac_Y_Pos,
 		output logic data_Out, up_wall, down_wall, left_wall ,right_wall
 );
 
@@ -505,20 +505,20 @@ logic [9:0] pac_size = 10'd16;
 always_comb
  begin
 	data_Out<= mem[read_addressY][read_addressX];
-	if (read_addressY > 10'd0)
-		up_wall <= mem[read_addressY-10'd01][read_addressX];
+	if (Pac_Y_Pos > 10'd0)
+		up_wall <= mem[Pac_Y_Pos-10'd01][Pac_X_Pos];
 	else 
 		up_wall <= 1'b1;
-	if (read_addressY < (10'd479 - pac_size))
-		down_wall <= mem[read_addressY+10'd01+pac_size][read_addressX];
+	if (Pac_Y_Pos < (10'd479 - pac_size))
+		down_wall <= mem[Pac_Y_Pos+10'd01+pac_size][Pac_X_Pos];
 	else 
 		down_wall <= 1'b1;
-	if (read_addressX > 10'd0)
-		left_wall <= mem[read_addressY][read_addressX-10'd01];
+	if (Pac_X_Pos > 10'd0)
+		left_wall <= mem[Pac_Y_Pos][Pac_X_Pos-10'd01];
 	else 
 		left_wall <= 1'b1;
-	if (read_addressX < (10'd639 - pac_size))
-		right_wall <= mem[read_addressY][read_addressX+10'd01+pac_size];
+	if (Pac_X_Pos < (10'd639 - pac_size))
+		right_wall <= mem[Pac_Y_Pos][Pac_X_Pos+10'd01+pac_size];
 	else 
 		right_wall <= 1'b1;	
 
