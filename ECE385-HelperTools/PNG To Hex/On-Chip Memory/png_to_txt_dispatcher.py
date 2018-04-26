@@ -47,5 +47,9 @@ while(1):
         os.system("python ./scripts/pixel_to_binary.py")
     elif mode == 5:
         os.system("python ./scripts/pixel_to_binary_sv.py")
+    elif mode == 6:
+        os.system("python ./scripts/pellets_to_binary_sv.py")
+    elif mode == 7:
+        os.system("python ./scripts/png_to_txt_resizer.py")
     else:
         print("Please enter a valid number.")

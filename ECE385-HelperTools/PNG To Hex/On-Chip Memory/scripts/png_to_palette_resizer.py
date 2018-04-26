@@ -8,8 +8,8 @@ def hex_to_rgb(num):
 def rgb_to_hex(num):
     h = str(num)
     return int(h[0:4], 16), int(('0x' + h[4:6]), 16), int(('0x' + h[6:8]), 16)
-filename = input("What's the image name? ")
-new_w, new_h = map(int, input("What's the new height x width? Like 28 28. ").split(' '))
+filename = raw_input("What's the image name? ")
+new_w, new_h = map(int, raw_input("What's the new height x width? Like 28 28. ").split(' '))
 palette_hex = ['0x800080','0x000000', '0xF83800', '0xF0D0B0', '0x503000', '0xFFE0A8', '0x0058F8', '0xFCFCFC', '0xBCBCBC', '0xA40000', '0xD82800', '0xFC7460', '0xFCBCB0', '0xF0BC3C', '0xAEACAE', '0x363301', '0x6C6C01', '0xBBBD00', '0x88D500', '0x398802', '0x65B0FF', '0x155ED8', '0x24188A']
 palette_rgb = [hex_to_rgb(color) for color in palette_hex]
 
