@@ -15,7 +15,7 @@
 
 module lab8( input               CLOCK_50,
              input        [3:0]  KEY,          //bit 0 is set up as Reset
-             output logic [6:0]  HEX0, HEX1,
+             output logic [6:0]  HEX0, HEX1,HEX4, HEX6,
              // VGA Interface 
              output logic [7:0]  VGA_R,        //VGA Red
                                  VGA_G,        //VGA Green
@@ -60,6 +60,7 @@ module lab8( input               CLOCK_50,
     logic [1:0] hpi_addr;
     logic [15:0] hpi_data_in, hpi_data_out;
     logic hpi_r, hpi_w, hpi_cs, hpi_reset;
+	 logic [2:0] DIR,DIR_IN; 
 	 
 	 lab8_soc m_lab8_soc(
 											 .clk_clk(CLOCK_50),
@@ -158,7 +159,9 @@ module lab8( input               CLOCK_50,
 			.PacY(PacY),
 			.keycode(keycode),
 			.is_pac(is_pac),
-			.is_wall(is_wall)
+			.is_wall(is_wall),
+			.DIR(DIR),
+			.DIR_IN(DIR_IN)
 	);
    
    color_mapper color_instance(
@@ -176,6 +179,8 @@ module lab8( input               CLOCK_50,
     // Display keycode on hex display
     HexDriver hex_inst_0 (keycode[3:0], HEX0);
     HexDriver hex_inst_1 (keycode[7:4], HEX1);
+	 HexDriver hex_inst_2 (DIR, HEX4);
+	 HexDriver hex_inst_3 (DIR_IN, HEX6);
     
     /**************************************************************************************
         ATTENTION! Please answer the following quesiton in your lab report! Points will be allocated for the answers!

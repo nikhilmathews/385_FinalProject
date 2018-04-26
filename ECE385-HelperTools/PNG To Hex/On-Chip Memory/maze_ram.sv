@@ -501,26 +501,26 @@ logic [479:0][639:0] mem = {
 //end
 
 
-logic [4:0] pac_size = 16;
+logic [9:0] pac_size = 10'd16;
 always_comb
  begin
 	data_Out<= mem[read_addressY][read_addressX];
-	if (read_addressY > 0)
-		up_wall <= mem[read_addressY-1][read_addressX];
+	if (read_addressY > 10'd0)
+		up_wall <= mem[read_addressY-10'd01][read_addressX];
 	else 
-		up_wall <= 1;
-	if (read_addressY < 639 - pac_size)
-		down_wall <= mem[read_addressY+1+pac_size][read_addressX];
+		up_wall <= 1'b1;
+	if (read_addressY < (10'd479 - pac_size))
+		down_wall <= mem[read_addressY+10'd01+pac_size][read_addressX];
 	else 
-		down_wall <= 1;
-	if (read_addressX > 0)
-		left_wall <= mem[read_addressY][read_addressX-1];
+		down_wall <= 1'b1;
+	if (read_addressX > 10'd0)
+		left_wall <= mem[read_addressY][read_addressX-10'd01];
 	else 
-		left_wall <= 1;
-	if (read_addressX <479 - pac_size)
-		right_wall <= mem[read_addressY][read_addressX+1+pac_size];
+		left_wall <= 1'b1;
+	if (read_addressX < (10'd639 - pac_size))
+		right_wall <= mem[read_addressY][read_addressX+10'd01+pac_size];
 	else 
-		right_wall <= 1;	
+		right_wall <= 1'b1;	
 
 end
 

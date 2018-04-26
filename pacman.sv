@@ -4,17 +4,19 @@ module pacman(input         Clk,                // 50 MHz clock
                input [9:0]   DrawX, DrawY ,   // Current pixel coordinates
 					input [7:0]   keycode,				 // keycodes for handling presses
                output logic  is_pac,is_wall,				// Whether current pixel belongs to ball or background
-					output logic [9:0] PacX, PacY  
+					output logic [9:0] PacX, PacY,
+					output [2:0] logic DIR, DIR_IN
               );
 				  
 				  
    
-	enum logic[3:0] { Halted, 
+	enum logic[2:0] { Halted, 
 					 up, 
 					 down,
 					 left,
 					 right} Dir, Dir_in;
-   
+	 assign DIR = Dir;
+	 assign DIR_IN = Dir_in;
     parameter [9:0] Pac_X_Center = 10'd320;  // Center position on the X axis
     parameter [9:0] Pac_Y_Center = 10'd246;  // Center position on the Y axis
     parameter [9:0] Pac_X_Min = 10'd0;       // Leftmost point on the X axis
@@ -96,69 +98,71 @@ module pacman(input         Clk,                // 50 MHz clock
 //                Pac_X_Motion_in = Pac_X_Step;
 
 			  if (frame_clk_rising_edge)
-        begin
-				
+			  begin		
 				if (keycode==8'd26) //W
 					begin
 						if(~up_wall)
 						begin
-						Pac_Y_Motion_in = (~(Pac_Y_Step) + 1'b1);
-						Pac_X_Motion_in = 0;
+//						Pac_Y_Motion_in = (~(Pac_Y_Step) + 1'b1);
+//						Pac_X_Motion_in = 0;
 						Dir_in = up;
-//						end
-//						else
-//						begin
+						end
+						else
+						begin
 //						Pac_Y_Motion_in = 0;
 //						Pac_X_Motion_in = 0;
-//						Dir_in = Halted;	
+						Dir_in = Halted;	
 						end
 					end
 				else if (keycode==8'd4) //A
 					begin
 						if (~left_wall)			
 						begin
-						Pac_X_Motion_in = (~(Pac_X_Step) + 1'b1);
-						Pac_Y_Motion_in = 0;
+//						Pac_X_Motion_in = (~(Pac_X_Step) + 1'b1);
+//						Pac_Y_Motion_in = 0;
 						Dir_in = left;
-//						end
-//						else
-//						begin
+						end
+						else
+						begin
 //						Pac_Y_Motion_in = 0;
 //						Pac_X_Motion_in = 0;
-//						Dir_in = Halted;	
+						Dir_in = Halted;	
 						end
 					end
 				
 				else if(keycode==8'd22) //S
 					begin
-						if (~down_wall) begin
-						Pac_Y_Motion_in = Pac_Y_Step;
-						Pac_X_Motion_in = 0;
+//						if (~down_wall) 
+//						begin
+//						Pac_Y_Motion_in = Pac_Y_Step;
+//						Pac_X_Motion_in = 0;
 						Dir_in = down;
 //						end
 //						else
 //						begin
-//						Pac_Y_Motion_in = 0;
-//						Pac_X_Motion_in = 0;
+////						Pac_Y_Motion_in = 0;
+////						Pac_X_Motion_in = 0;
 //						Dir_in = Halted;	
-						end
+//						end
 					end
 				
 				else if (keycode==8'd7) //D
 					begin
-						if(~right_wall) begin
-						Pac_X_Motion_in = Pac_X_Step;
-						Pac_Y_Motion_in = 0;
+//						if(~right_wall) begin
+//						Pac_X_Motion_in = Pac_X_Step;
+//						Pac_Y_Motion_in = 0;
 						Dir_in = right;
 //						end
 //						else
 //						begin
-//						Pac_Y_Motion_in = 0;
-//						Pac_X_Motion_in = 0;
+////						Pac_Y_Motion_in = 0;
+////						Pac_X_Motion_in = 0;
 //						Dir_in = Halted;	
-						end
+//						end
 					end
-//				else if(Dir == up)
+				
+				
+//				if(Dir == up)
 //				begin
 //				if(up_wall)
 //						begin
@@ -194,7 +198,40 @@ module pacman(input         Clk,                // 50 MHz clock
 //						Dir_in = Halted;	
 //						end
 //					end
+
+				if(Dir == up)
+				begin
+						Pac_Y_Motion_in = (~(Pac_Y_Step) + 1'b1);
+						Pac_X_Motion_in = 0;
+						Dir_in = Halted;	
+				end
 				
+				else if(Dir == down)
+				begin
+						Pac_Y_Motion_in = Pac_Y_Step;
+						Pac_X_Motion_in = 0;
+						Dir_in = Halted;	
+				end
+				
+				else if(Dir == right)
+				begin
+						Pac_Y_Motion_in = 0;
+						Pac_X_Motion_in = Pac_X_Step;
+						Dir_in = Halted;	
+				end
+				
+				else if(Dir == left)
+					begin
+						Pac_Y_Motion_in = 0;
+						Pac_X_Motion_in = (~(Pac_X_Step) + 1'b1);
+						Dir_in = Halted;	
+					end
+				else
+				begin
+						Pac_Y_Motion_in = 0;
+						Pac_X_Motion_in = 0;
+						Dir_in = Halted;
+				end
             // Update the Pac's position with its motion
             Pac_X_Pos_in = Pac_X_Pos + Pac_X_Motion;
             Pac_Y_Pos_in = Pac_Y_Pos + Pac_Y_Motion;
