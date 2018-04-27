@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="lab8_soc" kind="lab8_soc" version="1.0" fabric="QSYS">
  <!-- Format version 15.0 153 (Future versions may contain additional information.) -->
- <!-- 2018.03.13.20:11:27 -->
+ <!-- 2018.04.26.18:36:28 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1520989887</value>
+  <value>1524785788</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -2753,7 +2753,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_WIDTH</name>
-   <value>8</value>
+   <value>16</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DO_TEST_BENCH_WIRING</name>
@@ -2805,7 +2805,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.altr,gpio-bank-width</name>
-   <value>8</value>
+   <value>16</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.resetvalue</name>
@@ -2897,7 +2897,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="width">
    <type>int</type>
-   <value>8</value>
+   <value>16</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -3505,7 +3505,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>out_port</name>
     <direction>Output</direction>
-    <width>8</width>
+    <width>16</width>
     <role>export</role>
    </port>
   </interface>
@@ -4667,7 +4667,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="instSlaveMapParam">
    <type>java.lang.String</type>
-   <value><![CDATA[<address-map><slave name='sdram.s1' start='0x8000000' end='0x10000000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x10000800' end='0x10001000' /><slave name='onchip_memory2_0.s1' start='0x100010B0' end='0x100010C0' /><slave name='sdram_pll.pll_slave' start='0x100010C0' end='0x100010D0' /><slave name='sysid_qsys_0.control_slave' start='0x100010E0' end='0x100010E8' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='sdram.s1' start='0x8000000' end='0x10000000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x10000800' end='0x10001000' /><slave name='onchip_memory2_0.s1' start='0x100010B0' end='0x100010C0' /><slave name='sdram_pll.pll_slave' start='0x100010C0' end='0x100010D0' /><slave name='sysid_qsys_0.control_slave' start='0x100010D8' end='0x100010E0' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -4677,7 +4677,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="dataSlaveMapParam">
    <type>java.lang.String</type>
-   <value><![CDATA[<address-map><slave name='sdram.s1' start='0x8000000' end='0x10000000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x10000800' end='0x10001000' /><slave name='otg_hpi_reset.s1' start='0x10001020' end='0x10001030' /><slave name='otg_hpi_cs.s1' start='0x10001030' end='0x10001040' /><slave name='otg_hpi_w.s1' start='0x10001040' end='0x10001050' /><slave name='otg_hpi_r.s1' start='0x10001050' end='0x10001060' /><slave name='otg_hpi_data.s1' start='0x10001060' end='0x10001070' /><slave name='otg_hpi_address.s1' start='0x10001070' end='0x10001080' /><slave name='keycode.s1' start='0x10001080' end='0x10001090' /><slave name='KEY_3.s1' start='0x10001090' end='0x100010A0' /><slave name='KEY_2.s1' start='0x100010A0' end='0x100010B0' /><slave name='onchip_memory2_0.s1' start='0x100010B0' end='0x100010C0' /><slave name='sdram_pll.pll_slave' start='0x100010C0' end='0x100010D0' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x100010D8' end='0x100010E0' /><slave name='sysid_qsys_0.control_slave' start='0x100010E0' end='0x100010E8' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='sdram.s1' start='0x8000000' end='0x10000000' /><slave name='nios2_qsys_0.jtag_debug_module' start='0x10000800' end='0x10001000' /><slave name='otg_hpi_reset.s1' start='0x10001020' end='0x10001030' /><slave name='otg_hpi_cs.s1' start='0x10001030' end='0x10001040' /><slave name='otg_hpi_w.s1' start='0x10001040' end='0x10001050' /><slave name='otg_hpi_r.s1' start='0x10001050' end='0x10001060' /><slave name='otg_hpi_data.s1' start='0x10001060' end='0x10001070' /><slave name='otg_hpi_address.s1' start='0x10001070' end='0x10001080' /><slave name='keycode.s1' start='0x10001080' end='0x10001090' /><slave name='KEY_3.s1' start='0x10001090' end='0x100010A0' /><slave name='KEY_2.s1' start='0x100010A0' end='0x100010B0' /><slave name='onchip_memory2_0.s1' start='0x100010B0' end='0x100010C0' /><slave name='sdram_pll.pll_slave' start='0x100010C0' end='0x100010D0' /><slave name='sysid_qsys_0.control_slave' start='0x100010D8' end='0x100010E0' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x100010E0' end='0x100010E8' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -5260,7 +5260,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>jtag_uart_0</moduleName>
     <slaveName>avalon_jtag_slave</slaveName>
     <name>jtag_uart_0.avalon_jtag_slave</name>
-    <baseAddress>268439768</baseAddress>
+    <baseAddress>268439776</baseAddress>
     <span>8</span>
    </memoryBlock>
    <memoryBlock>
@@ -5268,7 +5268,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>sysid_qsys_0</moduleName>
     <slaveName>control_slave</slaveName>
     <name>sysid_qsys_0.control_slave</name>
-    <baseAddress>268439776</baseAddress>
+    <baseAddress>268439768</baseAddress>
     <span>8</span>
    </memoryBlock>
    <memoryBlock>
@@ -5667,7 +5667,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>sysid_qsys_0</moduleName>
     <slaveName>control_slave</slaveName>
     <name>sysid_qsys_0.control_slave</name>
-    <baseAddress>268439776</baseAddress>
+    <baseAddress>268439768</baseAddress>
     <span>8</span>
    </memoryBlock>
    <memoryBlock>
@@ -14848,7 +14848,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1520989887</value>
+   <value>1524785788</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -14868,7 +14868,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1520989887</value>
+   <value>1524785788</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -14884,7 +14884,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1520989887</value>
+   <value>1524785788</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -15371,7 +15371,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x100010d8</value>
+   <value>0x100010e0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -15422,7 +15422,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x100010e0</value>
+   <value>0x100010d8</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -16136,7 +16136,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x100010e0</value>
+   <value>0x100010d8</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>

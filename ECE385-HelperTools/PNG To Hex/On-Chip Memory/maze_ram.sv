@@ -6,8 +6,8 @@
 
 module  maze_RAM
 (
-		input [9:0] read_addressX, read_addressY, Pac_X_Pos, Pac_Y_Pos,
-		output logic data_Out, up_wall, down_wall, left_wall ,right_wall
+		input [9:0] read_addressX, read_addressY, Pac_X_Pos, Pac_Y_Pos, Ghost_X_Pos, Ghost_Y_Pos,
+		output logic data_Out, up_wall, down_wall, left_wall ,right_wall, up_wall_g, down_wall_g , left_wall_g, right_wall_g
 );
 
 // mem has width of 3 bits and a total of 400 addresses
@@ -501,7 +501,8 @@ logic [479:0][639:0] mem = {
 //end
 
 
-logic [9:0] pac_size = 10'd26;
+parameter [9:0] pac_size = 10'd21;
+parameter [9:0] Ghost_size = 10'd21;
 always_comb
  begin
 	data_Out<= mem[read_addressY][read_addressX];
@@ -522,6 +523,24 @@ always_comb
 	else 
 		right_wall <= 1'b1;	
 
+	if (Ghost_Y_Pos > 10'd0)
+		up_wall_g <= mem[Ghost_Y_Pos-10'd02][Ghost_X_Pos];
+	else 
+		up_wall_g <= 1'b1;
+	if (Ghost_Y_Pos < (10'd479 - Ghost_size))
+		down_wall_g <= mem[Ghost_Y_Pos+10'd02+Ghost_size][Ghost_X_Pos];
+	else 
+		down_wall_g <= 1'b1;
+	if (Ghost_X_Pos > 10'd0)
+		left_wall_g <= mem[Ghost_Y_Pos][Ghost_X_Pos-10'd02];
+	else 
+		left_wall_g <= 1'b1;
+	if (Ghost_X_Pos < (10'd639 - Ghost_size))
+		right_wall_g <= mem[Ghost_Y_Pos][Ghost_X_Pos+10'd02+Ghost_size];
+	else 
+		right_wall_g <= 1'b1;	
+
 end
+
 
 endmodule

@@ -7,7 +7,7 @@ module lab8_soc (
 		input  wire        clk_clk,                //             clk.clk
 		input  wire        key_2_wire_export,      //      key_2_wire.export
 		input  wire        key_3_wire_export,      //      key_3_wire.export
-		output wire [7:0]  keycode_export,         //         keycode.export
+		output wire [15:0] keycode_export,         //         keycode.export
 		output wire [1:0]  otg_hpi_address_export, // otg_hpi_address.export
 		output wire        otg_hpi_cs_export,      //      otg_hpi_cs.export
 		input  wire [15:0] otg_hpi_data_in_port,   //    otg_hpi_data.in_port

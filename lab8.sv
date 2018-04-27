@@ -47,11 +47,13 @@ module lab8( input               CLOCK_50,
                     );
     
     logic Reset_h, Clk;
-    logic [7:0] keycode;
-	 logic is_pac,is_wall;
-	 logic [9:0] DrawX, PacX;
-	 logic [9:0] DrawY, PacY;
+    logic [15:0] keycode;
+	 logic is_pac,is_wall, is_ghost;
+	 logic [9:0] DrawX, PacX, GhostX;
+	 logic [9:0] DrawY, PacY, GhostY;
 	 logic [3:0] score;
+	 logic up_wall, down_wall , left_wall, right_wall,up_wall_g, down_wall_g , left_wall_g, right_wall_g;
+	 logic [9:0] Pac_X_Pos, Pac_Y_Pos, Ghost_X_Pos, Ghost_Y_Pos;
     
     assign Clk = CLOCK_50;
     always_ff @ (posedge Clk) begin
@@ -63,6 +65,9 @@ module lab8( input               CLOCK_50,
     logic hpi_r, hpi_w, hpi_cs, hpi_reset;
 	 logic [2:0] DIR,DIR_IN; 
 	 logic [9:0] kill_10, alive_10,is_dot;
+	 
+	maze_RAM maze_instance(.read_addressX(DrawX), .read_addressY(DrawY), .data_Out(is_wall), .*);
+
 	 
 	 lab8_soc m_lab8_soc(
 											 .clk_clk(CLOCK_50),
@@ -161,9 +166,20 @@ module lab8( input               CLOCK_50,
 			.PacY(PacY),
 			.keycode(keycode),
 			.is_pac(is_pac),
-			.is_wall(is_wall),
-			.DIR(DIR),
-			.DIR_IN(DIR_IN)
+			.*
+	);
+	
+	  ghost ghost_instance(
+			.Clk(Clk),
+			.Reset(Reset_h), 
+			.frame_clk(VGA_HS | VGA_VS), 
+			.DrawX(DrawX),
+			.DrawY(DrawY),
+			.GhostX(GhostX),
+			.GhostY(GhostY),
+			.keycode(keycode),
+			.is_ghost(is_ghost),
+			.*
 	);
    
    color_mapper color_instance(
@@ -180,7 +196,8 @@ module lab8( input               CLOCK_50,
 			.kill_10(kill_10),
 			.alive_10(alive_10),
 			.is_dot(is_dot),
-			.score(score)
+			.score(score),
+			.*
 	);
     
     // Display keycode on hex display

@@ -2,10 +2,11 @@ module pacman(input         Clk,                // 50 MHz clock
                              Reset,              // Active-high reset signal
                              frame_clk,          // The clock indicating a new frame (~60Hz)
                input [9:0]   DrawX, DrawY ,   // Current pixel coordinates
-					input [7:0]   keycode,				 // keycodes for handling presses
-               output logic  is_pac,is_wall,				// Whether current pixel belongs to ball or background
+					input [15:0]   keycode,				 // keycodes for handling presses
+               output logic  is_pac	,			// Whether current pixel belongs to ball or background
 					output logic [9:0] PacX, PacY,
-					output logic [2:0]  DIR, DIR_IN
+					input logic up_wall, down_wall , left_wall, right_wall,
+				   output logic [9:0] Pac_X_Pos, Pac_Y_Pos
               );
 				  
 				  
@@ -15,8 +16,7 @@ module pacman(input         Clk,                // 50 MHz clock
 					 down,
 					 left,
 					 right} Dir, Dir_in;
-	 assign DIR = Dir;
-	 assign DIR_IN = Dir_in;
+
     parameter [9:0] Pac_X_Center = 10'd320;  // Center position on the X axis
     parameter [9:0] Pac_Y_Center = 10'd246;  // Center position on the Y axis
     parameter [9:0] Pac_X_Min = 10'd0;       // Leftmost point on the X axis
@@ -25,14 +25,13 @@ module pacman(input         Clk,                // 50 MHz clock
     parameter [9:0] Pac_Y_Max = 10'd479;     // Bottommost point on the Y axis
     parameter [9:0] Pac_X_Step = 10'd1;      // Step size on the X axis
     parameter [9:0] Pac_Y_Step = 10'd1;      // Step size on the Y axis
-    parameter [9:0] Pac_Size = 10'd26;        // Pac size
+    parameter [9:0] Pac_Size = 10'd21;        // Pac size
 	 
     
-    logic [9:0] Pac_X_Pos, Pac_X_Motion, Pac_Y_Pos, Pac_Y_Motion;
+    logic [9:0] Pac_X_Motion, Pac_Y_Motion;
     logic [9:0] Pac_X_Pos_in, Pac_X_Motion_in, Pac_Y_Pos_in, Pac_Y_Motion_in;
-	 logic up_wall, down_wall , left_wall, right_wall;
+	 
 	
-	maze_RAM maze_instance(.read_addressX(DrawX), .read_addressY(DrawY), .data_Out(is_wall), .*);
 
 	initial 
 	begin
@@ -98,7 +97,7 @@ module pacman(input         Clk,                // 50 MHz clock
 
 			  if (frame_clk_rising_edge)
 			  begin		
-				if (keycode==8'd26) //W
+				if (((keycode & 16'h00ff) == 16'd26) | ((keycode & 16'hff00) == 16'h1a00)) //W
 					begin
 						//if(~up_wall)
 						//begin
@@ -113,7 +112,7 @@ module pacman(input         Clk,                // 50 MHz clock
 						//Dir_in = Halted;	
 						//end
 					end
-				else if (keycode==8'd4) //A
+				else if (((keycode & 16'h00ff) == 16'd4) | ((keycode & 16'hff00) == 16'h0400)) //A
 					begin
 						///if (~left_wall)			
 						//begin
@@ -129,7 +128,7 @@ module pacman(input         Clk,                // 50 MHz clock
 //						end
 					end
 				
-				else if(keycode==8'd22) //S
+				else if(((keycode & 16'h00ff) == 16'd22) | ((keycode & 16'hff00) == 16'h1600)) //S
 					begin
 //						if (~down_wall) 
 //						begin
@@ -145,7 +144,7 @@ module pacman(input         Clk,                // 50 MHz clock
 //						end
 					end
 				
-				else if (keycode==8'd7) //D
+				else if (((keycode & 16'h00ff) == 16'd7) | ((keycode & 16'hff00) == 16'h0700)) //D
 					begin
 //						if(~right_wall) begin
 //						Pac_X_Motion_in = Pac_X_Step;

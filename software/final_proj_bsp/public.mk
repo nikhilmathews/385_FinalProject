@@ -156,14 +156,14 @@ SOPC_SYSID_FLAG += --id=0
 ELF_PATCH_FLAG  += --id 0
 
 # The SOPC System ID Base Address 
-# setting SOPC_SYSID_BASE_ADDRESS is 0x100010e0
-SOPC_SYSID_FLAG += --sidp=0x100010e0
-ELF_PATCH_FLAG  += --sidp 0x100010e0
+# setting SOPC_SYSID_BASE_ADDRESS is 0x100010d8
+SOPC_SYSID_FLAG += --sidp=0x100010d8
+ELF_PATCH_FLAG  += --sidp 0x100010d8
 
 # The SOPC Timestamp 
-# setting SOPC_TIMESTAMP is 1520989887
-SOPC_SYSID_FLAG += --timestamp=1520989887
-ELF_PATCH_FLAG  += --timestamp 1520989887
+# setting SOPC_TIMESTAMP is 1524785788
+SOPC_SYSID_FLAG += --timestamp=1524785788
+ELF_PATCH_FLAG  += --timestamp 1524785788
 
 # Enable JTAG UART driver to recover when host is inactive causing buffer to 
 # full without returning error. Printf will not fail with this recovery. none 

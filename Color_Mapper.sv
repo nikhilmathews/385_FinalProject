@@ -16,8 +16,8 @@
 // color_mapper: Decide which color to be output to VGA for each pixel.
 module  color_mapper (             // Whether current pixel belongs to ball
 							  input Clk,
-                       input					is_pac,is_wall,                                       //   or background (computed in ball.sv)
-                       input        [9:0] DrawX, DrawY,PacX, PacY,       // Current pixel coordinates
+                       input					is_pac,is_wall, is_ghost,                       //   or background (computed in ball.sv)
+                       input        [9:0] DrawX, DrawY,PacX, PacY, GhostX, GhostY,      // Current pixel coordinates
                        output logic [7:0] VGA_R, VGA_G, VGA_B, // VGA RGB output
 							  output logic [9:0] kill_10,alive_10,is_dot,
 							  output logic [3:0] score
@@ -25,10 +25,10 @@ module  color_mapper (             // Whether current pixel belongs to ball
                      );
     
     logic [7:0] Red, Green, Blue;
-    logic [23:0] PacOut;  
+    logic [23:0] PacOut, GhostOut;  
 	 logic MazeOut;
 	 
-	 logic [9:0] pacsize = 26;
+	 logic [9:0] pacsize = 21;
 	 
 	 initial
 	 begin
@@ -41,6 +41,9 @@ module  color_mapper (             // Whether current pixel belongs to ball
 	 pac_rightRAM pac_rram(.read_address(PacX + PacY*pacsize), 
 						.data_Out(PacOut));
 						
+	 ghost_rightRAM ghost_rram(.read_address(GhostX + GhostY*pacsize), 
+						.data_Out(GhostOut));					
+						
 	 dots dots_instance(.*);
     // Output colors to VGA
     assign VGA_R = Red;
@@ -52,7 +55,22 @@ module  color_mapper (             // Whether current pixel belongs to ball
     always_comb
     begin
 	 kill_10 = 10'd0;
-		if(is_dots & alive_10[dot_number])
+	  if (is_ghost == 1'b1)
+		begin
+		if(is_pac == 1'b1)
+			begin
+				Red = GhostOut[23:16];
+				Green = GhostOut[15:8];
+				Blue = GhostOut[7:0]; /*Fix this */
+			end
+			else
+			begin
+				Red = GhostOut[23:16];
+				Green = GhostOut[15:8];
+				Blue = GhostOut[7:0];
+			end
+		end
+		else if(is_dots & alive_10[dot_number])
 		begin
 			if(is_pac == 1'b1)
 			begin
