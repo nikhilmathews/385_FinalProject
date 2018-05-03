@@ -22,7 +22,7 @@ for y in range(im.size[1]):
         print(pixel)
         r, g, b, a = im.getpixel((x, y))
         if(r <= 120 and g <= 120 and b <= 120):
-            outImg.putpixel((x,y), pixel)
+            outImg.putpixel((x,y), (0,0,0,0))
             r, g, b, a = im.getpixel((x,y))
             outFile.write("0")
         else:
