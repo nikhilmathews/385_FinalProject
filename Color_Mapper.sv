@@ -26,9 +26,22 @@ module  color_mapper (             // Whether current pixel belongs to ball
     
     logic [7:0] Red, Green, Blue;
     logic [23:0] PacOut, GhostOut;  
-	 logic MazeOut;
+	 logic update_score;
+	 logic endgame = 0;
+	 logic endf = 0;
+	 logic is_end_font;
+	 logic [9:0] pacsize = 18;
 	 
-	 logic [9:0] pacsize = 21;
+    always_ff @ (posedge Clk) begin
+	 if (update_score)
+	 begin
+		score = score + 1;
+		if(score == 10)
+			endf = 1;
+	end
+	 if (endgame)
+		endf = 1;
+	 end
 	 
 	 initial
 	 begin
@@ -38,6 +51,8 @@ module  color_mapper (             // Whether current pixel belongs to ball
 	 //logic [9:0] kill_10,alive_10;
 	 logic is_dots;							
 	 logic [3:0] dot_number;
+	 
+	 end_RAM eram(.data_Out(is_end_font), .read_addressX(10'd640-DrawX), .read_addressY(10'd480-DrawY));
 	 pac_rightRAM pac_rram(.read_address(PacX + PacY*pacsize), 
 						.data_Out(PacOut));
 						
@@ -54,11 +69,29 @@ module  color_mapper (             // Whether current pixel belongs to ball
     // Assign color based on is_ball signal
     always_comb
     begin
+	 endgame = 0;
+	 update_score = 0;
 	 kill_10 = 10'd0;
-	  if (is_ghost == 1'b1)
+	  if (endf)
+	  begin
+	   if (is_end_font)
+		begin
+		Red = 8'h00;
+		Green = 8'h00;
+		Blue = 8'hff;
+		end
+		else
+		begin
+		Red = 8'h00;
+		Green = 8'h00;
+		Blue = 8'h00;
+		end
+	  end
+	  else if (is_ghost == 1'b1)
 		begin
 		if(is_pac == 1'b1)
 			begin
+				endgame = 1;
 				Red = GhostOut[23:16];
 				Green = GhostOut[15:8];
 				Blue = GhostOut[7:0]; /*Fix this */
@@ -75,7 +108,7 @@ module  color_mapper (             // Whether current pixel belongs to ball
 			if(is_pac == 1'b1)
 			begin
 				kill_10[dot_number] = 1'b1;
-				//score = score + 4'd1;
+				update_score = 1;
 				Red = PacOut[23:16];
 				Green = PacOut[15:8];
 				Blue = PacOut[7:0];

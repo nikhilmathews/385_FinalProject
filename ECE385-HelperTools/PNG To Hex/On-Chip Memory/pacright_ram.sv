@@ -10,7 +10,7 @@ module  pac_rightRAM
 		output logic [23:0] data_Out
 );
 
-parameter [9:0] size = 10'd21;
+parameter [9:0] size = 10'd18;
 // mem has width of 3 bits and a total of 400 addresses
 logic [23:0] mem [0:size*size-1];
 

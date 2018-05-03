@@ -501,42 +501,43 @@ logic [479:0][639:0] mem = {
 //end
 
 
-parameter [9:0] pac_size = 10'd21;
-parameter [9:0] Ghost_size = 10'd21;
+parameter [9:0] pac_size = 10'd18;
+parameter [9:0] Ghost_size = 10'd18;
+parameter [9:0] mid = 10'd9;
 always_comb
  begin
 	data_Out<= mem[read_addressY][read_addressX];
 	if (Pac_Y_Pos > 10'd0)
-		up_wall <= mem[Pac_Y_Pos-10'd02][Pac_X_Pos];
+		up_wall <= mem[Pac_Y_Pos-10'd02][Pac_X_Pos] | mem[Pac_Y_Pos-10'd02][Pac_X_Pos + mid] | mem[Pac_Y_Pos-10'd02][Pac_X_Pos + pac_size] ;
 	else 
 		up_wall <= 1'b1;
 	if (Pac_Y_Pos < (10'd479 - pac_size))
-		down_wall <= mem[Pac_Y_Pos+10'd02+pac_size][Pac_X_Pos];
+		down_wall <= mem[Pac_Y_Pos+10'd02+pac_size][Pac_X_Pos] | mem[Pac_Y_Pos+10'd02+pac_size][Pac_X_Pos + mid] | mem[Pac_Y_Pos+10'd02+pac_size][Pac_X_Pos + pac_size];
 	else 
 		down_wall <= 1'b1;
 	if (Pac_X_Pos > 10'd0)
-		left_wall <= mem[Pac_Y_Pos][Pac_X_Pos-10'd02];
+		left_wall <= mem[Pac_Y_Pos][Pac_X_Pos-10'd02] | mem[Pac_Y_Pos + mid][Pac_X_Pos-10'd02] | mem[Pac_Y_Pos + pac_size][Pac_X_Pos-10'd02] ;
 	else 
 		left_wall <= 1'b1;
 	if (Pac_X_Pos < (10'd639 - pac_size))
-		right_wall <= mem[Pac_Y_Pos][Pac_X_Pos+10'd02+pac_size];
+		right_wall <= mem[Pac_Y_Pos][Pac_X_Pos+10'd02+pac_size] | mem[Pac_Y_Pos + mid][Pac_X_Pos+10'd02+pac_size] | mem[Pac_Y_Pos + pac_size][Pac_X_Pos+10'd02+pac_size];
 	else 
 		right_wall <= 1'b1;	
 
 	if (Ghost_Y_Pos > 10'd0)
-		up_wall_g <= mem[Ghost_Y_Pos-10'd02][Ghost_X_Pos];
+		up_wall_g <= mem[Ghost_Y_Pos-10'd02][Ghost_X_Pos]| mem[Ghost_Y_Pos-10'd02][Ghost_X_Pos + mid] | mem[Ghost_Y_Pos-10'd02][Ghost_X_Pos + pac_size] ;
 	else 
 		up_wall_g <= 1'b1;
 	if (Ghost_Y_Pos < (10'd479 - Ghost_size))
-		down_wall_g <= mem[Ghost_Y_Pos+10'd02+Ghost_size][Ghost_X_Pos];
+		down_wall_g <= mem[Ghost_Y_Pos+10'd02+Ghost_size][Ghost_X_Pos] | mem[Ghost_Y_Pos+10'd02+pac_size][Ghost_X_Pos + mid] | mem[Ghost_Y_Pos+10'd02+pac_size][Ghost_X_Pos + pac_size];
 	else 
 		down_wall_g <= 1'b1;
 	if (Ghost_X_Pos > 10'd0)
-		left_wall_g <= mem[Ghost_Y_Pos][Ghost_X_Pos-10'd02];
+		left_wall_g <= mem[Ghost_Y_Pos][Ghost_X_Pos-10'd02]  | mem[Ghost_Y_Pos + mid][Ghost_X_Pos-10'd02] | mem[Ghost_Y_Pos + pac_size][Ghost_X_Pos-10'd02] ;
 	else 
 		left_wall_g <= 1'b1;
 	if (Ghost_X_Pos < (10'd639 - Ghost_size))
-		right_wall_g <= mem[Ghost_Y_Pos][Ghost_X_Pos+10'd02+Ghost_size];
+		right_wall_g <= mem[Ghost_Y_Pos][Ghost_X_Pos+10'd02+Ghost_size] | mem[Ghost_Y_Pos + mid][Ghost_X_Pos+10'd02+pac_size] | mem[Ghost_Y_Pos + pac_size][Ghost_X_Pos+10'd02+pac_size];
 	else 
 		right_wall_g <= 1'b1;	
 

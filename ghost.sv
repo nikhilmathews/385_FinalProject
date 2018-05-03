@@ -18,14 +18,14 @@ module ghost(input         Clk,                // 50 MHz clock
 					 right} Dir, Dir_in;
 
     parameter [9:0] Ghost_X_Center = 10'd25;  // Center position on the X axis
-    parameter [9:0] Ghost_Y_Center = 10'd225;  // Center position on the Y axis
+    parameter [9:0] Ghost_Y_Center = 10'd245 ;  // Center position on the Y axis
     parameter [9:0] Ghost_X_Min = 10'd0;       // Leftmost point on the X axis
     parameter [9:0] Ghost_X_Max = 10'd639;     // Rightmost point on the X axis
     parameter [9:0] Ghost_Y_Min = 10'd0;       // Topmost point on the Y axis
     parameter [9:0] Ghost_Y_Max = 10'd479;     // Bottommost point on the Y axis
     parameter [9:0] Ghost_X_Step = 10'd1;      // Step size on the X axis
     parameter [9:0] Ghost_Y_Step = 10'd1;      // Step size on the Y axis
-    parameter [9:0] Ghost_Size = 10'd21;        // Ghost size
+    parameter [9:0] Ghost_Size = 10'd18;        // Ghost size
 	 
     
     logic [9:0] Ghost_X_Motion, Ghost_Y_Motion;

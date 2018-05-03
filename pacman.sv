@@ -25,7 +25,7 @@ module pacman(input         Clk,                // 50 MHz clock
     parameter [9:0] Pac_Y_Max = 10'd479;     // Bottommost point on the Y axis
     parameter [9:0] Pac_X_Step = 10'd1;      // Step size on the X axis
     parameter [9:0] Pac_Y_Step = 10'd1;      // Step size on the Y axis
-    parameter [9:0] Pac_Size = 10'd21;        // Pac size
+    parameter [9:0] Pac_Size = 10'd18;        // Pac size
 	 
     
     logic [9:0] Pac_X_Motion, Pac_Y_Motion;

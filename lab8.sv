@@ -15,7 +15,7 @@
 
 module lab8( input               CLOCK_50,
              input        [3:0]  KEY,          //bit 0 is set up as Reset
-             output logic [6:0]  HEX0, HEX1,HEX2,HEX3,HEX4,HEX5, HEX6, HEX7,
+             output logic [6:0]  HEX0, HEX1,//HEX2,HEX3,HEX4,HEX5, HEX6, HEX7,
              // VGA Interface 
              output logic [7:0]  VGA_R,        //VGA Red
                                  VGA_G,        //VGA Green
@@ -207,20 +207,26 @@ module lab8( input               CLOCK_50,
 //	 HexDriver hex_inst_1 (alive_10[7:4], HEX1);
 //	 HexDriver hex_inst_2 (alive_10[9:8], HEX2);
 
-	 HexDriver hex_inst_0 (score[3:0], HEX0);
-//	 HexDriver hex_inst_1 (is_dot[7:4], HEX1);
+logic[3:0] first;
+logic[3:0] second;
+ HexDriver hex_inst_0 (first, HEX0);
+ HexDriver hex_inst_1 (second, HEX1);
+always_comb begin
+
+	if(score == 10)
+	begin
+		first = 0;
+		second = 1;
+	end
+	else
+	begin
+		first = score;
+		second = 0;
+	end 
+end
 //	 HexDriver hex_inst_2 (is_dot[9:8], HEX2);
 //	 
 //	 HexDriver hex_inst_3 (kill_10[3:0], HEX3);
 //	 HexDriver hex_inst_4 (kill_10[7:4], HEX4);
 //	 HexDriver hex_inst_5 (kill_10[9:8], HEX5);
-//	
-	 
-    
-    /**************************************************************************************
-        ATTENTION! Please answer the following quesiton in your lab report! Points will be allocated for the answers!
-        Hidden Question #1/2:
-        What are the advantages and/or disadvantages of using a USB interface over PS/2 interface to
-             connect to the keyboard? List any two.  Give an answer in your Post-Lab.
-    **************************************************************************************/
 endmodule
